@@ -15,31 +15,34 @@
 </head>
 
 <body>
-    <form id="form" name="form" action="" method="">
-        <label>
-            Unidades por pacote
-            <input type="text" id="numUnits" name="numUnits" placeholder='Ex.: "6" latas por engradado' maxlength="4"
-                pattern="[0-9]{1,4}" required>
-        </label>
+    <section id="form-data" class="box">
+        <form id="form" name="form" action="" method="">
+            <label>
+                Unidades por pacote
+                <input type="text" id="numUnits" name="numUnits" placeholder='Ex.: "6" latas por engradado'
+                    maxlength="4" pattern="[0-9]{1,4}" required>
+            </label>
 
-        <label>
-            Volume por unidade
-            <input type="text" id="volUnit" name="volUnit" placeholder='Ex.: "350"ml por lata' maxlength="4"
-                pattern="[0-9]{1,4}" required>
-        </label>
+            <label>
+                Volume por unidade
+                <input type="text" id="volUnit" name="volUnit" placeholder='Ex.: "350"ml por lata' maxlength="4"
+                    pattern="[0-9,\.]{1,4}" required>
+            </label>
 
-        <label>
-            Preço do pacote
-            <input type="text" id="price" name="price" placeholder="R$ 7,50" maxlength="4" pattern="^[0-9][0-9,\.]{1,4}[0-9]$"
-                required>
-        </label>
-        <br /><br />
-        <div class="block-column">
-            <input type="button" id="btAdd" value="+ Item" onclick="addItemList(); false;" />
-            <input type="reset" id="btReset" value="reset" />
-            <input type="button" id="btClear" value="clear" onclick="clearList()" />
-        </div>
-    </form>
+            <label>
+                Preço do pacote
+                <input type="text" id="price" name="price" placeholder="Ex.: R$ 7,50 engradado" maxlength="4"
+                    pattern="[^0,\.][0-9,\.]{0,4}[0-9]{0,6}$" required>
+            </label>
+            <br /><br />
+            <div class="block-column">
+                <input type="button" id="btAdd" value="add" onclick="addItemList(); false;" />
+                <!--input type="reset" id="btReset" value="reset" /-->
+                <input type="button" id="btClear" value="clear list" onclick="clearList()" />
+            </div>
+        </form>
+        <p style="text-align: right; padding: 0px 10px 0px 0px">v0.3</p>
+    </section>
 
     <section id="list-itens">
     </section>

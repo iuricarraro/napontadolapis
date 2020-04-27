@@ -16,7 +16,6 @@ form {
     /*background-color: #c8d6e5;*/
     padding           : 20px;
     margin            : 10px auto;
-    border            : 2px solid #faf8f0;
 }
 
 label,
@@ -24,7 +23,7 @@ input,
 select {
     /*display    : block;*/
     line-height: 30px;
-    height     : 25px;
+    height     : 36px;
     outline    : none;
     font-size  : 12pt;
     width      : 95%;
@@ -49,9 +48,8 @@ input:valid {
 }
 
 section {
-    width   : 300px;
-    margin  : 10px auto;
-    /*border: 2px solid #faf8f0;*/
+    width : 300px;
+    margin: 10px auto;
 }
 
 article {
@@ -66,9 +64,13 @@ article>header {
 }
 
 form:invalid>#submit {
-    color: red;
+    color: tomato;
 }
 
 hr {
     margin: 5px;
+}
+
+.box {
+    border: 2px solid #faf8f0;
 }

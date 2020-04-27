@@ -9,10 +9,12 @@ let templateItem = '' +
     '<hr/>' +
     '    <p>R$ [PRICE]</p>' +
     '</article >';
+let backgroundColorDefault = "";
 
 window.onload = function (e) {
     console.log('app ready');
     newDataSet();
+    backgroundColorDefault = document.querySelector('#numUnits').style.backgroundColor;
 }
 
 function addItemList() {
@@ -23,12 +25,25 @@ function addItemList() {
     let oPrice = document.querySelector('#price');
     let oForm = document.querySelector("#form");
 
-    let numUnits = parseFloat(oNumUnits.value);
-    let volUnit = parseFloat(oVolUnit.value);
-    let price = parseFloat(oPrice.value);
+    let numUnits = parseInt(oNumUnits.value);
+    let volUnit = parseFloat(oVolUnit.value.replace(",", "."));
+    let price = parseFloat(oPrice.value.replace(",", "."));
 
-    if (!oForm.reportValidity() || isNaN(numUnits) || isNaN(volUnit) || isNaN(price)) {
-        console.log("exception");
+    oNumUnits.style.backgroundColor = backgroundColorDefault;
+    oVolUnit.style.backgroundColor = backgroundColorDefault;
+    oPrice.style.backgroundColor = backgroundColorDefault;
+
+    if (!oForm.reportValidity() || isNaN(numUnits) || isNaN(volUnit) || isNaN(price)
+        || numUnits === 0 || volUnit === 0 || price === 0) {
+        if (numUnits === 0)
+            oNumUnits.style.backgroundColor = "tomato";
+        else if (volUnit === 0)
+            oVolUnit.style.backgroundColor = "tomato";
+        else if (price === 0)
+            oPrice.style.backgroundColor = "tomato";
+
+
+        console.log("invalid input data");
         return false;
     }
 
@@ -47,11 +62,27 @@ function updateList() {
     secItens.innerHTML = "";
 
     _arrDataSet.produtos.forEach(function (item, index, arr) {
-        secItens.innerHTML += templateItem.replace('[UNIT]', item.units)
-            .replace('[VOL]', item.vol)
-            .replace('[RAT]', item.rating)
-            .replace('[PRICE]', item.price);
-    })
+        let strUnit = item.units.toString().replace(".", ",");
+        let strVol = item.vol.toString().replace(".", ",");
+        //let strRating = (Math.round(item.rating * 100) / 100).toFixed(3).toString().replace(".", ",");
+        let strRating = item.rating.toString().replace(".", ",");
+        //let strPrice = (Math.round(item.price * 100) / 100).toFixed(2).toString().replace(".", ",");
+        let strPrice = item.price.toString().replace(".", ",");
+
+        secItens.innerHTML += templateItem
+            .replace('[UNIT]', strUnit)
+            .replace('[VOL]', strVol)
+            .replace('[RAT]', strRating)
+            .replace('[PRICE]', strPrice);
+    });
+
+    /**
+     * altera a o backgrounfd-color do primeiro e último item da lista
+     */
+    document.querySelector("article:last-child").style.backgroundColor = "sienna"; // darkseagreen
+    // peru darkseagreen
+    document.querySelector("article:first-child").style.backgroundColor = "cadetblue"; // rosybrown | tomato | sienna
+
 }
 
 function clearList() {
@@ -70,8 +101,7 @@ function calculateRating(numUnits, volUnit, price) {
     if (volUnit - parseInt(volUnit) > 0)
         volUnitAsset = volUnit * 1000;
 
-    let rating = parseFloat((price / (numUnits * volUnitAsset)).toFixed(3).slice(0, -1));
-    console.log(rating);
+    let rating = parseFloat((price / (numUnits * volUnitAsset)).toFixed(3));
 
     return ({ "units": numUnits, "vol": volUnit, "price": price, "rating": rating });
 }
@@ -93,5 +123,5 @@ function sortDataSet() {
     _arrDataSet.produtos.sort(function (a, b) {
         return a["rating"] - b["rating"];
     });
-    console.table(_arrDataSet.produtos);
+    //console.table(_arrDataSet.produtos);
 }
