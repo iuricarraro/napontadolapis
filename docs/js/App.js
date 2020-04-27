@@ -1,13 +1,15 @@
 let _jsonDataSet, _arrDataSet;
+let _placeholders = '{ "produtos": [] }';
+
 let templateItem = '' +
     '<article>' +
     '    <header class="block-column" >' +
     '        <div>[UNIT] unit.</div>' +
     '        <div>[VOL] vol.</div>' +
-    '        <div>R$ [RAT]/vol.</div>' +
+    '        <div style="font-weight: bold;">R$ [RAT]/vol.</div>' +
     '</header>' +
     '<hr/>' +
-    '    <p>R$ [PRICE]</p>' +
+    '    <p style="font-weight: bold;">R$ [PRICE]</p>' +
     '</article >';
 let backgroundColorDefault = "";
 
@@ -66,8 +68,8 @@ function updateList() {
         let strVol = item.vol.toString().replace(".", ",");
         //let strRating = (Math.round(item.rating * 100) / 100).toFixed(3).toString().replace(".", ",");
         let strRating = item.rating.toString().replace(".", ",");
-        //let strPrice = (Math.round(item.price * 100) / 100).toFixed(2).toString().replace(".", ",");
-        let strPrice = item.price.toString().replace(".", ",");
+        let strPrice = (Math.round(item.price * 100) / 100).toFixed(2).toString().replace(".", ",");
+        //let strPrice = item.price.toString().replace(".", ",");
 
         secItens.innerHTML += templateItem
             .replace('[UNIT]', strUnit)
