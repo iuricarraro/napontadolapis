@@ -23,20 +23,21 @@
         <form id="form" name="form" action="" method="">
             <label>
                 Unidades por pacote
-                <input type="number" id="numUnits" name="numUnits" inputmode="numeric" maxlength="4"
-                    pattern="[0-9]{1,4}" required placeholder='Ex.: "6" latas por engradado' autocomplete="off">
+                <input type="text" inputmode="numeric" id="numUnits" name="numUnits" maxlength="4" pattern="[0-9]{1,4}"
+                    placeholder='Ex.: "6" latas por engradado' autocomplete="off" required>
             </label>
 
             <label>
                 Volume por unidade
-                <input type="text" id="volUnit" name="volUnit" inputmode="numeric" placeholder='Ex.: "350"ml por lata'
-                    maxlength="6" pattern="[0-9,\.]{1,6}" required autocomplete="off">
+                <input type="text" inputmode="numeric" id="volUnit" name="volUnit" maxlength="6" pattern="[0-9,\.]{1,6}"
+                    placeholder='Ex.: "350"ml por lata' autocomplete="off" required>
             </label>
 
             <label>
                 Preço do pacote
-                <input type="text" id="price" name="price" placeholder="Ex.: R$ 7,50 engradado" maxlength="6"
-                    pattern="[^0,\.][0-9,\.]{0,4}[0-9]{0,6}$" required autocomplete="off">
+                <input type="text" inputmode="numeric" id="price" name="price" maxlength="6"
+                    pattern="[^0,\.][0-9,\.]{0,4}[0-9]{0,6}$" placeholder="Ex.: R$ 7,50 engradado" autocomplete="off"
+                    required>
             </label>
             <br /><br />
             <div class="block-column">
