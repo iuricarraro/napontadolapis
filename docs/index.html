@@ -14,23 +14,23 @@
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <link rel="stylesheet" href="css/styles_2.css?v=1.0">
 </head>
 
 <body>
     <section id="form-data" class="box">
-        <div class="title">Calculadora de custo-benefício</div>
+        <div class="titulo-app" title="Calculadora de custo-benefício de produtos semelhantes.">Na Ponta do Lápis!</div>
         <form id="form" name="form" action="" method="">
             <label>
                 Unidades por pacote
-                <input type="text" id="numUnits" name="numUnits" placeholder='Ex.: "6" latas por engradado'
-                    maxlength="4" pattern="[0-9]{1,4}" required autocomplete="off">
+                <input type="number" id="numUnits" name="numUnits" inputmode="numeric" maxlength="4"
+                    pattern="[0-9]{1,4}" required placeholder='Ex.: "6" latas por engradado' autocomplete="off">
             </label>
 
             <label>
                 Volume por unidade
-                <input type="text" id="volUnit" name="volUnit" placeholder='Ex.: "350"ml por lata' maxlength="6"
-                    pattern="[0-9,\.]{1,6}" required autocomplete="off">
+                <input type="text" id="volUnit" name="volUnit" inputmode="numeric" placeholder='Ex.: "350"ml por lata'
+                    maxlength="6" pattern="[0-9,\.]{1,6}" required autocomplete="off">
             </label>
 
             <label>

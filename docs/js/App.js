@@ -56,6 +56,9 @@ function addItemList() {
     return true;
 }
 
+/**
+ * Recria a lista de itens com a nova ordenação
+ */
 function updateList() {
     console.log("updating");
     sortDataSet();
@@ -66,10 +69,8 @@ function updateList() {
     _arrDataSet.produtos.forEach(function (item, index, arr) {
         let strUnit = item.units.toString().replace(".", ",");
         let strVol = item.vol.toString().replace(".", ",");
-        //let strRating = (Math.round(item.rating * 100) / 100).toFixed(3).toString().replace(".", ",");
         let strRating = item.rating.toString().replace(".", ",");
         let strPrice = (Math.round(item.price * 100) / 100).toFixed(2).toString().replace(".", ",");
-        //let strPrice = item.price.toString().replace(".", ",");
 
         secItens.innerHTML += templateItem
             .replace('[UNIT]', strUnit)
@@ -78,13 +79,9 @@ function updateList() {
             .replace('[PRICE]', strPrice);
     });
 
-    /**
-     * altera a o backgrounfd-color do primeiro e último item da lista
-     */
+    // altera a o backgrounfd-color do primeiro e último item da lista
     document.querySelector("article:last-child").style.backgroundColor = "sienna"; // darkseagreen
-    // peru darkseagreen
     document.querySelector("article:first-child").style.backgroundColor = "cadetblue"; // rosybrown | tomato | sienna
-
 }
 
 function clearList() {
@@ -94,8 +91,14 @@ function clearList() {
     secItens.innerHTML = "";
 }
 
+/**
+ * Calcula o custo-benefício do item
+ * @param {number} units 
+ * @param {number} vol 
+ * @param {number} price 
+ */
 function calculateRating(units, vol, price) {
-    if (vol - parseInt(vol) > 0) // se for decimal x 1000 para converter em unidade
+    if (vol - parseInt(vol) > 0) // caso float convert para unidade
         vol = vol * 1000;
 
     let rating = parseFloat((price / (units * vol)).toFixed(3));
