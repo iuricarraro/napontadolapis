@@ -8,9 +8,12 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, user-scalable=no">
 
-    <title>Na Ponta do Lápis</title>
-    <meta name="description" content="App Na Ponta do Lápis">
+    <title>Na Ponta do Lápis!</title>
+    <meta name="description" content="App de cálculo de custo-benefício entre produtos semelhantes.">
     <meta name="author" content="@iuricarraro">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <link rel="stylesheet" href="css/styles.css?v=1.0">
 </head>
 
@@ -26,13 +29,13 @@
 
             <label>
                 Volume por unidade
-                <input type="text" id="volUnit" name="volUnit" placeholder='Ex.: "350"ml por lata' maxlength="4"
-                    pattern="[0-9,\.]{1,4}" required autocomplete="off">
+                <input type="text" id="volUnit" name="volUnit" placeholder='Ex.: "350"ml por lata' maxlength="6"
+                    pattern="[0-9,\.]{1,6}" required autocomplete="off">
             </label>
 
             <label>
                 Preço do pacote
-                <input type="text" id="price" name="price" placeholder="Ex.: R$ 7,50 engradado" maxlength="4"
+                <input type="text" id="price" name="price" placeholder="Ex.: R$ 7,50 engradado" maxlength="6"
                     pattern="[^0,\.][0-9,\.]{0,4}[0-9]{0,6}$" required autocomplete="off">
             </label>
             <br /><br />
@@ -42,7 +45,7 @@
                 <input type="button" id="btClear" value="clear list" onclick="clearList()" />
             </div>
         </form>
-        <p style="text-align: right; padding: 0px 10px 0px 0px">v0.1.1</p>
+        <p style="text-align: right; padding: 0px 10px 0px 0px">v0.1.5</p>
     </section>
 
     <section id="list-itens">

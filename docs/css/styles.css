@@ -31,6 +31,7 @@ select {
 
 input {
     margin-bottom: 3px;
+    padding-left : 5px;
 }
 
 input:invalid {
@@ -41,10 +42,10 @@ input:valid {
     border: 1px solid #faf8f0;
 }
 
-.block-column {
-    display       : flex;
-    flex-direction: row;
+label {
+    font-weight: bold;
 }
+
 
 section {
     width           : 300px;
@@ -67,13 +68,18 @@ hr {
     margin: 5px;
 }
 
+.block-column {
+    display       : flex;
+    flex-direction: row;
+}
+
 .box {
     border: 2px solid #faf8f0;
 }
 
 .title {
-    margin    : 15px 5px 5px 5px;
+    margin     : 15px 5px 5px 5px;
     font-weight: bold;
-    text-align: center;
-    font-size: 14pt;
+    text-align : center;
+    font-size  : 14pt;
 }

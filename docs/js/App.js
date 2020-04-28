@@ -94,18 +94,13 @@ function clearList() {
     secItens.innerHTML = "";
 }
 
-function calculateRating(numUnits, volUnit, price) {
-    let volUnitAsset = 1;
+function calculateRating(units, vol, price) {
+    if (vol - parseInt(vol) > 0) // se for decimal x 1000 para converter em unidade
+        vol = vol * 1000;
 
-    if (numUnits == 0 || volUnit == 0)
-        return 0;
+    let rating = parseFloat((price / (units * vol)).toFixed(3));
 
-    if (volUnit - parseInt(volUnit) > 0)
-        volUnitAsset = volUnit * 1000;
-
-    let rating = parseFloat((price / (numUnits * volUnitAsset)).toFixed(3));
-
-    return ({ "units": numUnits, "vol": volUnit, "price": price, "rating": rating });
+    return ({ "units": units, "vol": vol, "price": price, "rating": rating });
 }
 
 function newDataSet() {
