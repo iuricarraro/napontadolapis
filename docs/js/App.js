@@ -3,20 +3,30 @@ let _placeholders = '{ "produtos": [] }';
 
 let templateItem = '' +
     '<article>' +
-    '    <header class="block-column" >' +
+    '    <header class="block-column card-info-2">' +
     '        <div>[UNIT] unit.</div>' +
     '        <div>[VOL] vol.</div>' +
     '        <div style="font-weight: bold;">R$ [RAT]/vol.</div>' +
     '</header>' +
-    '<hr/>' +
+    '<div class="card-separator"></div>' +
     '    <p style="font-weight: bold;">R$ [PRICE]</p>' +
     '</article >';
-let backgroundColorDefault = "";
+
+/**
+ * getting colors system from CSS
+ */
+let styleCardFirstItemBgColor, styleCardLastItemBgColor, styleInputInvalid = '';
 
 window.onload = function (e) {
     console.log('app ready');
     newDataSet();
+
     backgroundColorDefault = document.querySelector('#numUnits').style.backgroundColor;
+    styleCardFirstItemBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-first-bg-color');
+    styleCardLastItemBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-last-bg-color');
+    styleInputInvalid = getComputedStyle(document.documentElement).getPropertyValue('--input-invalid');
+
+
 }
 
 function addItemList() {
@@ -31,18 +41,18 @@ function addItemList() {
     let volUnit = parseFloat(oVolUnit.value.replace(",", "."));
     let price = parseFloat(oPrice.value.replace(",", "."));
 
-    oNumUnits.style.backgroundColor = backgroundColorDefault;
-    oVolUnit.style.backgroundColor = backgroundColorDefault;
-    oPrice.style.backgroundColor = backgroundColorDefault;
+    oNumUnits.style.backgroundColor = '';
+    oVolUnit.style.backgroundColor = '';
+    oPrice.style.backgroundColor = '';
 
     if (!oForm.reportValidity() || isNaN(numUnits) || isNaN(volUnit) || isNaN(price)
         || numUnits === 0 || volUnit === 0 || price === 0) {
         if (numUnits === 0)
-            oNumUnits.style.backgroundColor = "tomato";
+            oNumUnits.style.backgroundColor = styleInputInvalid;
         else if (volUnit === 0)
-            oVolUnit.style.backgroundColor = "tomato";
+            oVolUnit.style.backgroundColor = styleInputInvalid;
         else if (price === 0)
-            oPrice.style.backgroundColor = "tomato";
+            oPrice.style.backgroundColor = styleInputInvalid;
 
 
         console.log("invalid input data");
@@ -52,6 +62,8 @@ function addItemList() {
     addDataSet(calculateRating(numUnits, volUnit, price));
     updateList();
     oForm.reset();
+
+    restartFocus();
 
     return true;
 }
@@ -80,8 +92,8 @@ function updateList() {
     });
 
     // altera a o backgrounfd-color do primeiro e último item da lista
-    document.querySelector("article:last-child").style.backgroundColor = "sienna"; // darkseagreen
-    document.querySelector("article:first-child").style.backgroundColor = "cadetblue"; // rosybrown | tomato | sienna
+    document.querySelector("article:last-child").style.backgroundColor = styleCardLastItemBgColor;
+    document.querySelector("article:first-child").style.backgroundColor = styleCardFirstItemBgColor;
 }
 
 function clearList() {
@@ -89,6 +101,10 @@ function clearList() {
     newDataSet();
     let secItens = document.querySelector("#list-itens");
     secItens.innerHTML = "";
+}
+
+function restartFocus() {
+    document.querySelector("input:first-child").focus();
 }
 
 /**
