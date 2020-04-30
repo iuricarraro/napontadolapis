@@ -40,13 +40,13 @@
 
             <label>
                 Volume por unidade
-                <input type="text" inputmode="numeric" id="volUnit" name="volUnit" maxlength="6" pattern="[0-9,\.]{1,6}"
+                <input type="text" inputmode="decimal" id="volUnit" name="volUnit" maxlength="6" pattern="[0-9,\.]{1,6}"
                     placeholder='Ex.: "350"ml por lata' autocomplete="off" required>
             </label>
 
             <label>
                 Preço do pacote
-                <input type="text" inputmode="numeric" id="price" name="price" maxlength="6"
+                <input type="text" inputmode="decimal" id="price" name="price" maxlength="6"
                     pattern="[^0,\.][0-9,\.]{0,4}[0-9]{0,6}$" placeholder="Ex.: R$ 7,50 engradado" autocomplete="off"
                     required>
             </label>
