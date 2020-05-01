@@ -63,6 +63,7 @@ function addItemList() {
         return false;
     }
 
+    // add object in storage structure
     addDataSet(calculateRation(numUnits, volUnit, price));
 
     // refresh interface
