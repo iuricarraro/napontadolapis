@@ -15,20 +15,24 @@ let templateItem = '' +
 /**
  * getting colors system from CSS
  */
-let styleCardFirstItemBgColor, styleCardLastItemBgColor, styleInputInvalid = '';
+let _styleCardFirstItemBgColor, _styleCardLastItemBgColor, _styleInputInvalid = '';
 
+/**
+ * set global variables
+ * start storage structure
+ */
 window.onload = function (e) {
     console.log('app ready');
     newDataSet();
 
-    backgroundColorDefault = document.querySelector('#numUnits').style.backgroundColor;
-    styleCardFirstItemBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-first-bg-color');
-    styleCardLastItemBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-last-bg-color');
-    styleInputInvalid = getComputedStyle(document.documentElement).getPropertyValue('--input-invalid');
-
-
+    _styleCardFirstItemBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-first-bg-color');
+    _styleCardLastItemBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-last-bg-color');
+    _styleInputInvalid = getComputedStyle(document.documentElement).getPropertyValue('--input-invalid');
 }
 
+/**
+ * add item to dataset e refresh interface
+ */
 function addItemList() {
     console.log("adding");
 
@@ -47,20 +51,24 @@ function addItemList() {
 
     if (!oForm.reportValidity() || isNaN(numUnits) || isNaN(volUnit) || isNaN(price)
         || numUnits === 0 || volUnit === 0 || price === 0) {
-        if (numUnits === 0)
-            oNumUnits.style.backgroundColor = styleInputInvalid;
-        else if (volUnit === 0)
-            oVolUnit.style.backgroundColor = styleInputInvalid;
-        else if (price === 0)
-            oPrice.style.backgroundColor = styleInputInvalid;
 
+        if (numUnits === 0)
+            oNumUnits.style.backgroundColor = _styleInputInvalid;
+        else if (volUnit === 0)
+            oVolUnit.style.backgroundColor = _styleInputInvalid;
+        else if (price === 0)
+            oPrice.style.backgroundColor = _styleInputInvalid;
 
         console.log("invalid input data");
         return false;
     }
 
-    addDataSet(calculateRating(numUnits, volUnit, price));
+    addDataSet(calculateRation(numUnits, volUnit, price));
+
+    // refresh interface
     updateList();
+
+    // reset form inputs
     oForm.reset();
 
     restartFocus();
@@ -69,10 +77,12 @@ function addItemList() {
 }
 
 /**
- * Recria a lista de itens com a nova ordenação
+ * remake sorted items list
  */
 function updateList() {
     console.log("updating");
+
+    // reorder items list 
     sortDataSet();
 
     let secItens = document.querySelector("#list-itens");
@@ -92,10 +102,13 @@ function updateList() {
     });
 
     // altera a o backgrounfd-color do primeiro e último item da lista
-    document.querySelector("article:last-child").style.backgroundColor = styleCardLastItemBgColor;
-    document.querySelector("article:first-child").style.backgroundColor = styleCardFirstItemBgColor;
+    document.querySelector("article:last-child").style.backgroundColor = _styleCardLastItemBgColor;
+    document.querySelector("article:first-child").style.backgroundColor = _styleCardFirstItemBgColor;
 }
 
+/**
+ * destroy interface list and renew storage structure
+ */
 function clearList() {
     console.log("resetting");
     newDataSet();
@@ -103,37 +116,50 @@ function clearList() {
     secItens.innerHTML = "";
 }
 
+/**
+ * set focus on first input
+ */
 function restartFocus() {
     document.querySelector("input:first-child").focus();
 }
 
 /**
- * Calcula o custo-benefício do item
+ * calculate ratio from item
  * @param {number} units 
  * @param {number} vol 
  * @param {number} price 
  */
-function calculateRating(units, vol, price) {
-    if (vol - parseInt(vol) > 0) // caso float convert para unidade
-        vol = vol * 1000;
+function calculateRation(units, vol, price) {
+    if (vol - parseInt(vol) > 0)
+        vol = vol * 1000; // convert to default unit
 
     let rating = parseFloat((price / (units * vol)).toFixed(3));
 
     return ({ "units": units, "vol": vol, "price": price, "rating": rating });
 }
 
+/**
+ * init storage structure
+ */
 function newDataSet() {
     console.log('create dataset');
     _jsonDataSet = '{ "produtos": [] }';
     _arrDataSet = JSON.parse(_jsonDataSet);
 }
 
+/**
+ * add new item
+ * @param {object item} newItem 
+ */
 function addDataSet(newItem) {
     console.log('add item dataset');
     _arrDataSet["produtos"].push(newItem);
     _jsonDataSet = JSON.stringify(_arrDataSet);
 }
 
+/**
+ * sort list
+ */
 function sortDataSet() {
     console.log('sort dataset');
     _arrDataSet.produtos.sort(function (a, b) {
