@@ -33,7 +33,7 @@ window.onload = function (e) {
 /**
  * add item to dataset e refresh interface
  */
-function addItemList() {
+function addItem() {
     console.log("adding");
 
     let oNumUnits = document.querySelector('#numUnits');
