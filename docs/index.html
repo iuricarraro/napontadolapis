@@ -20,15 +20,15 @@
     <title>Na Ponta do Lápis!</title>
     <meta name="description" content="App de cálculo de custo-benefício entre produtos semelhantes.">
     <meta name="author" content="@iuricarraro">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <link rel="stylesheet" href="css/styles_1.css?v=1.0">
 </head>
 
 <body>
     <section id="form-data" class="box-input">
-        <p class="app-version">v0.1.12</p>
+        <p class="app-version">v0.1.13</p>
         <div class="titulo-app" title="Calculadora de custo-benefício de produtos semelhantes.">Na Ponta do Lápis!</div>
         <form id="form" name="form" action="" method="">
             <label>
@@ -52,7 +52,6 @@
             <br /><br />
             <div class="block-column">
                 <input type="button" id="btAdd" value="adicionar" onclick="addItemList(); false;" />
-                <!--input type="reset" id="btReset" value="reset" /-->
                 <input type="button" id="btClear" value="limpar lista" onclick="clearList()" />
             </div>
         </form>
@@ -60,6 +59,9 @@
 
     <section id="list-itens" class="box-result">
     </section>
+
+    <!-- load js app -->
     <script src="js/App.js"></script>
 </body>
+
 </html>

@@ -1,7 +1,7 @@
 let _jsonDataSet, _arrDataSet;
-let _placeholders = '{ "produtos": [] }';
+let _placeholders = '{ "items": [] }';
 
-let templateItem = '' +
+let cardTemplate = '' +
     '<article>' +
     '    <header class="block-column card-info-2">' +
     '        <div>[UNIT] unit.</div>' +
@@ -15,7 +15,7 @@ let templateItem = '' +
 /**
  * getting colors system from CSS
  */
-let _styleCardFirstItemBgColor, _styleCardLastItemBgColor, _styleInputInvalid = '';
+let _styleFirstCardBgColor, _styleLastCardBgColor, _styleInputInvalid = '';
 
 /**
  * set global variables
@@ -25,8 +25,8 @@ window.onload = function (e) {
     console.log('app ready');
     newDataSet();
 
-    _styleCardFirstItemBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-first-bg-color');
-    _styleCardLastItemBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-last-bg-color');
+    _styleFirstCardBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-first-bg-color');
+    _styleLastCardBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-last-bg-color');
     _styleInputInvalid = getComputedStyle(document.documentElement).getPropertyValue('--input-invalid');
 }
 
@@ -85,16 +85,16 @@ function updateList() {
     // reorder items list 
     sortDataSet();
 
-    let secItens = document.querySelector("#list-itens");
-    secItens.innerHTML = "";
+    let secCards = document.querySelector("#list-itens");
+    secCards.innerHTML = "";
 
-    _arrDataSet.produtos.forEach(function (item, index, arr) {
+    _arrDataSet.items.forEach(function (item, index, arr) {
         let strUnit = item.units.toString().replace(".", ",");
         let strVol = item.vol.toString().replace(".", ",");
         let strRating = item.rating.toString().replace(".", ",");
         let strPrice = (Math.round(item.price * 100) / 100).toFixed(2).toString().replace(".", ",");
 
-        secItens.innerHTML += templateItem
+        secCards.innerHTML += cardTemplate
             .replace('[UNIT]', strUnit)
             .replace('[VOL]', strVol)
             .replace('[RAT]', strRating)
@@ -102,8 +102,8 @@ function updateList() {
     });
 
     // altera a o backgrounfd-color do primeiro e último item da lista
-    document.querySelector("article:last-child").style.backgroundColor = _styleCardLastItemBgColor;
-    document.querySelector("article:first-child").style.backgroundColor = _styleCardFirstItemBgColor;
+    document.querySelector("article:last-child").style.backgroundColor = _styleLastCardBgColor;
+    document.querySelector("article:first-child").style.backgroundColor = _styleFirstCardBgColor;
 }
 
 /**
@@ -112,8 +112,7 @@ function updateList() {
 function clearList() {
     console.log("resetting");
     newDataSet();
-    let secItens = document.querySelector("#list-itens");
-    secItens.innerHTML = "";
+    document.querySelector("#list-itens").innerHTML = "";
 }
 
 /**
@@ -143,7 +142,7 @@ function calculateRation(units, vol, price) {
  */
 function newDataSet() {
     console.log('create dataset');
-    _jsonDataSet = '{ "produtos": [] }';
+    _jsonDataSet = '{ "items": [] }';
     _arrDataSet = JSON.parse(_jsonDataSet);
 }
 
@@ -153,7 +152,7 @@ function newDataSet() {
  */
 function addDataSet(newItem) {
     console.log('add item dataset');
-    _arrDataSet["produtos"].push(newItem);
+    _arrDataSet["items"].push(newItem);
     _jsonDataSet = JSON.stringify(_arrDataSet);
 }
 
@@ -162,8 +161,8 @@ function addDataSet(newItem) {
  */
 function sortDataSet() {
     console.log('sort dataset');
-    _arrDataSet.produtos.sort(function (a, b) {
+    _arrDataSet.items.sort(function (a, b) {
         return a["rating"] - b["rating"];
     });
-    //console.table(_arrDataSet.produtos);
+    //console.table(_arrDataSet.items);
 }
