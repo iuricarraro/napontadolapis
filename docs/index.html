@@ -27,8 +27,12 @@
 
 <body>
     <section id="form-data" class="box-input">
-        <p class="app-version">v0.1.14</p>
-        <div class="titulo-app" title="Calculadora de custo-benefício de produtos semelhantes.">Na Ponta do Lápis!</div>
+        <!--
+            Versão do software segundo definição de Versionamento Semântico 
+            https://semver.org/lang/pt-BR/ 
+        -->
+        <p class="app-version">v1.0.0</p>
+        <div class="app-titulo" title="Calculadora de custo-benefício de produtos semelhantes.">Na Ponta do Lápis!</div>
         <form id="form" name="form" action="" method="">
             <label>
                 Unidades por pacote
@@ -59,7 +63,7 @@
     <!-- ordered cards list -->
     <section id="cards-list" class="box-result">
         <!-- template for card -->
-        <template id="cardTemplate">
+        <template id="card-template">
             <article>
                 <header class="block-column card-info-2">
                     <div id="tplUnit"></div>

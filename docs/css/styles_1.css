@@ -83,12 +83,6 @@ hr {
     color : var(--card-info1-font-color);
 }
 
-.card-info-2 {
-    color          : var(--card-info2-font-color);
-    justify-content: space-between;
-    display        : flex;
-    flex-direction : row;
-}
 
 .block-column {
     display       : flex;
@@ -104,7 +98,15 @@ hr {
     background-color: var(--app-bg-color);
 }
 
-.titulo-app {
+.app-version {
+    color     : var(--box-font-color);
+    text-align: right;
+    padding   : 2px 5px 0px 0px;
+    margin    : 1px 0px 0px 0px;
+    font-size : 10pt;
+}
+
+.app-titulo {
     color      : var(--titulo-font-color);
     margin     : 5px 0px 0px 0px;
     font-weight: bold;
@@ -112,16 +114,16 @@ hr {
     font-size  : 14pt;
 }
 
+
 .card-separator {
     background-color: var(--card-separator);
     height          : 2px;
     margin          : 5px;
 }
 
-.app-version {
-    color     : var(--box-font-color);
-    text-align: right;
-    padding   : 2px 5px 0px 0px;
-    margin    : 1px 0px 0px 0px;
-    font-size : 10pt;
+.card-info-2 {
+    color          : var(--card-info2-font-color);
+    justify-content: space-between;
+    display        : flex;
+    flex-direction : row;
 }

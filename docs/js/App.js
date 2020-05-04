@@ -1,10 +1,7 @@
-let _jsonDataSet, _arrDataSet;
-let _placeholders = '{ "items": [] }';
-
 /**
  * initialize global variables
  */
-let secListCards, cardTemplate, _styleFirstCardBgColor, _styleLastCardBgColor, _styleInputInvalid = '';
+let _placeholders, _jsonDataSet, _arrDataSet, _secListCards, _cardTemplate, _styleFirstCardBgColor, _styleLastCardBgColor, _styleInputInvalid = '';
 
 /**
  * set global variables
@@ -14,8 +11,9 @@ window.onload = function (e) {
     console.log('app ready');
     newDataSet();
 
-    secListCards = document.querySelector("#cards-list");
-    cardTemplate = document.querySelector("#cardTemplate");
+    _placeholders = '{ "items": [] }';
+    _secListCards = document.querySelector("#cards-list");
+    _cardTemplate = document.querySelector("#card-template");
     _styleFirstCardBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-first-bg-color');
     _styleLastCardBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-last-bg-color');
     _styleInputInvalid = getComputedStyle(document.documentElement).getPropertyValue('--input-invalid');
@@ -78,10 +76,7 @@ function updateList() {
     sortDataSet();
 
     // delete all cards from list
-    secListCards.innerHTML = "";
-
-    // load template
-    let card = cardTemplate.content.querySelector("article");
+    _secListCards.innerHTML = "";
 
     // fill template values and append on list
     _arrDataSet.items.forEach(function (item, index, arr) {
@@ -90,13 +85,16 @@ function updateList() {
         let strRatio = item.rating.toString().replace(".", ",");
         let strPrice = (Math.round(item.price * 100) / 100).toFixed(2).toString().replace(".", ",");
 
+        // load template
+        let card = _cardTemplate.content.querySelector("article").cloneNode(true);
+
         // using HTML5 tag TEMPLATE
         card.querySelector("#tplUnit").innerHTML = strUnit + ' unid.';
         card.querySelector("#tplVol").innerHTML = strVol + ' vol.';
         card.querySelector("#tplRatio").innerHTML = 'R$ ' + strRatio + '/vol.';
         card.querySelector("#tplPrice").innerHTML = 'R$ ' + strPrice;
 
-        secListCards.appendChild(card);
+        _secListCards.appendChild(card);
     });
 
     // altera a o backgrounfd-color do primeiro e último item da lista
