@@ -103,6 +103,7 @@ function updateList() {
     });
 
     // altera a o backgrounfd-color do primeiro e último item da lista
+    // todo: usar apenas CSS para essa tarefa :last-of-type :first-of-type
     document.querySelector("article:last-child").style.backgroundColor = _styleLastCardBgColor;
     document.querySelector("article:first-child").style.backgroundColor = _styleFirstCardBgColor;
 }
