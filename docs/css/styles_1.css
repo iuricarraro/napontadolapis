@@ -1,20 +1,23 @@
+/* variables CSS */
 :root {
-    --app-bg-color    : #6c8ead;
+    --app-bg-color: #6c8ead;
+
     --box-bg-color    : #296eb4;
     --box-border-color: #fffff2;
+    --box-font-color  : #ffffff;
 
-    --box-font-color        : #ffffff;
-    --card-bg-color         : #f1faee;
-    --card-border-color     : #fffff2;
-    --card-info1-font-color : #011627;
-    --card-info2-font-color : #011627;
-    --titulo-font-color     : #fffff2;
+    --card-bg-color        : #f1faee;
+    --card-border-color    : #fffff2;
+    --card-info1-font-color: #011627;
+    --card-info2-font-color: #011627;
+    --card-first-bg-color  : #41d3bd;
+    --card-separator       : #333333;
+    --card-normal-bg-color : #ffe8d1;
+    --card-last-bg-color   : #ff595e;
+
     --label-input-font-color: #fffff2;
-    --card-first-bg-color   : #41d3bd;
-    --card-separator        : #333333;
-    --card-normal-bg-color  : #ffe8d1;
-    --card-last-bg-color    : #ff595e;
     --input-invalid         : #f87666;
+    --titulo-font-color     : #fffff2;
 }
 
 * {
@@ -27,14 +30,13 @@
 }
 
 body {
-    background-color     : var(--app-bg-color);
-    /*color              : #f1faee;*/
-    font-weight          : 300;
-    font-size            : 12pt;
-    -webkit-user-select  : none;
-    -moz-user-select     : none;
-    -ms-user-select      : none;
-    user-select          : none;
+    background-color   : var(--app-bg-color);
+    font-weight        : 300;
+    font-size          : 12pt;
+    -webkit-user-select: none;
+    -moz-user-select   : none;
+    -ms-user-select    : none;
+    user-select        : none;
 }
 
 form {
