@@ -1,21 +1,10 @@
 let _jsonDataSet, _arrDataSet;
 let _placeholders = '{ "items": [] }';
 
-let cardTemplate = '' +
-    '<article>' +
-    '    <header class="block-column card-info-2">' +
-    '        <div>[UNIT] unit.</div>' +
-    '        <div>[VOL] vol.</div>' +
-    '        <div style="font-weight: bold;">R$ [RAT]/vol.</div>' +
-    '</header>' +
-    '<div class="card-separator"></div>' +
-    '    <p style="font-weight: bold;">R$ [PRICE]</p>' +
-    '</article >';
-
 /**
- * getting colors system from CSS
+ * initialize global variables
  */
-let _styleFirstCardBgColor, _styleLastCardBgColor, _styleInputInvalid = '';
+let secListCards, cardTemplate, _styleFirstCardBgColor, _styleLastCardBgColor, _styleInputInvalid = '';
 
 /**
  * set global variables
@@ -25,6 +14,8 @@ window.onload = function (e) {
     console.log('app ready');
     newDataSet();
 
+    secListCards = document.querySelector("#cards-list");
+    cardTemplate = document.querySelector("#cardTemplate");
     _styleFirstCardBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-first-bg-color');
     _styleLastCardBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-last-bg-color');
     _styleInputInvalid = getComputedStyle(document.documentElement).getPropertyValue('--input-invalid');
@@ -86,20 +77,26 @@ function updateList() {
     // reorder items list 
     sortDataSet();
 
-    let secCards = document.querySelector("#list-itens");
-    secCards.innerHTML = "";
+    // delete all cards from list
+    secListCards.innerHTML = "";
 
+    // load template
+    let card = cardTemplate.content.querySelector("article");
+
+    // fill template values and append on list
     _arrDataSet.items.forEach(function (item, index, arr) {
         let strUnit = item.units.toString().replace(".", ",");
         let strVol = item.vol.toString().replace(".", ",");
-        let strRating = item.rating.toString().replace(".", ",");
+        let strRatio = item.rating.toString().replace(".", ",");
         let strPrice = (Math.round(item.price * 100) / 100).toFixed(2).toString().replace(".", ",");
 
-        secCards.innerHTML += cardTemplate
-            .replace('[UNIT]', strUnit)
-            .replace('[VOL]', strVol)
-            .replace('[RAT]', strRating)
-            .replace('[PRICE]', strPrice);
+        // using HTML5 tag TEMPLATE
+        card.querySelector("#tplUnit").innerHTML = strUnit + ' unid.';
+        card.querySelector("#tplVol").innerHTML = strVol + ' vol.';
+        card.querySelector("#tplRatio").innerHTML = 'R$ ' + strRatio + '/vol.';
+        card.querySelector("#tplPrice").innerHTML = 'R$ ' + strPrice;
+
+        secListCards.appendChild(card);
     });
 
     // altera a o backgrounfd-color do primeiro e último item da lista
@@ -114,7 +111,7 @@ function updateList() {
 function clearList() {
     console.log("resetting");
     newDataSet();
-    document.querySelector("#list-itens").innerHTML = "";
+    document.querySelector("#cards-list").innerHTML = "";
 }
 
 /**

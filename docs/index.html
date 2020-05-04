@@ -56,8 +56,20 @@
         </form>
     </section>
 
-    <!-- list items ordered-->
-    <section id="list-itens" class="box-result">
+    <!-- ordered cards list -->
+    <section id="cards-list" class="box-result">
+        <!-- template for card -->
+        <template id="cardTemplate">
+            <article>
+                <header class="block-column card-info-2">
+                    <div id="tplUnit"></div>
+                    <div id="tplVol"></div>
+                    <div id="tplRatio" style="font-weight: bold;"></div>
+                </header>
+                <div class="card-separator"></div>
+                <p id="tplPrice" style="font-weight: bold;"></p>
+            </article>
+        </template>
     </section>
 
     <!-- load js app -->
