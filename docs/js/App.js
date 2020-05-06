@@ -1,7 +1,7 @@
 /**
  * initialize global variables
  */
-let _placeholders, _jsonDataSet, _arrDataSet, _secListCards, _cardTemplate, _styleFirstCardBgColor, _styleLastCardBgColor, _styleInputInvalid = '';
+let _placeholders, _jsonDataSet, _arrDataSet, _secListCards, _cardTemplate, _styleInputInvalid = '';
 
 /**
  * set global variables
@@ -14,8 +14,6 @@ window.onload = function (e) {
     _placeholders = '{ "items": [] }';
     _secListCards = document.querySelector("#cards-list");
     _cardTemplate = document.querySelector("#card-template");
-    _styleFirstCardBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-first-bg-color');
-    _styleLastCardBgColor = getComputedStyle(document.documentElement).getPropertyValue('--card-last-bg-color');
     _styleInputInvalid = getComputedStyle(document.documentElement).getPropertyValue('--input-invalid');
 }
 
@@ -96,11 +94,6 @@ function updateList() {
 
         _secListCards.appendChild(card);
     });
-
-    // altera a o backgrounfd-color do primeiro e último item da lista
-    // todo: usar apenas CSS para essa tarefa :last-of-type :first-of-type
-    document.querySelector("article:last-child").style.backgroundColor = _styleLastCardBgColor;
-    document.querySelector("article:first-child").style.backgroundColor = _styleFirstCardBgColor;
 }
 
 /**

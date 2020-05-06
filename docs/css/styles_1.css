@@ -78,11 +78,18 @@ article {
     margin          : 0px 0px 5px 0px;
 }
 
+article:last-of-type {
+    background-color: var(--card-last-bg-color);
+}
+
+article:first-of-type {
+    background-color: var(--card-first-bg-color);
+}
+
 hr {
     margin: 5px;
     color : var(--card-info1-font-color);
 }
-
 
 .block-column {
     display       : flex;
