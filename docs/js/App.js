@@ -1,7 +1,7 @@
 /**
  * initialize global variables
  */
-let _placeholders, _jsonDataSet, _arrDataSet, _secListCards, _cardTemplate, _styleInputInvalid = '';
+let _arrDataSet, _secListCards, _cardTemplate, _styleInputInvalid, _objPlaceholder;
 
 /**
  * set global variables
@@ -11,18 +11,25 @@ window.onload = function (e) {
     console.log('app ready');
     newDataSet();
 
-    _placeholders = '{ "items": [] }';
     _secListCards = document.querySelector("#cards-list");
     _cardTemplate = document.querySelector("#card-template");
     _styleInputInvalid = getComputedStyle(document.documentElement).getPropertyValue('--input-invalid');
+    _styleCardBestChoice = getComputedStyle(document.documentElement).getPropertyValue('--card-best-choice-bg-color');
+    _styleCard = getComputedStyle(document.documentElement).getPropertyValue('--card-bg-color');
+
+    // random data input placeholder
+    _objPlaceholder = _arrPlaceholderExamples[Math.floor(Math.random() * _arrPlaceholderExamples.length)];
+
+    // set placeholder 
+    document.querySelector("#numUnits").placeholder = _objPlaceholder.units;
+    document.querySelector("#volUnit").placeholder = _objPlaceholder.volume;
+    document.querySelector("#price").placeholder = _objPlaceholder.price;
 }
 
 /**
  * add item to dataset e refresh interface
  */
 function addItem() {
-    console.log("adding");
-
     let oNumUnits = document.querySelector('#numUnits');
     let oVolUnit = document.querySelector('#volUnit');
     let oPrice = document.querySelector('#price');
@@ -51,48 +58,45 @@ function addItem() {
     }
 
     // add object in storage structure
-    addDataSet(calculateRation(numUnits, volUnit, price));
+    addDataSet({ "units": numUnits, "vol": volUnit, "price": price, "ratio": calculateRation(numUnits, volUnit, price) });
 
     // refresh interface
     updateList();
 
     // reset form inputs
     oForm.reset();
-
     restartFocus();
 
     return true;
 }
 
-/**
- * remake sorted items list
- */
 function updateList() {
-    console.log("updating");
+    // get last item added
+    const lastAdded = _arrDataSet[_arrDataSet.length - 1];
+    console.log(lastAdded);
 
-    // reorder items list 
-    sortDataSet();
+    // load template
+    let card = _cardTemplate.content.querySelector("article").cloneNode(true);
 
-    // delete all cards from list
-    _secListCards.innerHTML = "";
+    // using HTML5 tag TEMPLATE
+    card.querySelector("#tplUnit").innerHTML = lastAdded.units.toString().replace(".", ",") + ' unid.';
+    card.querySelector("#tplVol").innerHTML = lastAdded.vol.toString().replace(".", ",") + ' vol.';
+    card.querySelector("#tplRatio").innerHTML = 'R$ ' + lastAdded.ratio.toString().replace(".", ",") + '/vol.';
+    card.querySelector("#tplPrice").innerHTML = 'R$ ' + (Math.round(lastAdded.price * 100) / 100).toFixed(2).toString().replace(".", ",");
 
-    // fill template values and append on list
-    _arrDataSet.items.forEach(function (item, index, arr) {
-        let strUnit = item.units.toString().replace(".", ",");
-        let strVol = item.vol.toString().replace(".", ",");
-        let strRatio = item.rating.toString().replace(".", ",");
-        let strPrice = (Math.round(item.price * 100) / 100).toFixed(2).toString().replace(".", ",");
+    // append next card on section
+    _secListCards.appendChild(card);
 
-        // load template
-        let card = _cardTemplate.content.querySelector("article").cloneNode(true);
+    // reset background-color all cards (articles)
+    document.querySelectorAll("section#cards-list article").forEach((element, index) => {
+        element.style.backgroundColor = _styleCard;
+    });
 
-        // using HTML5 tag TEMPLATE
-        card.querySelector("#tplUnit").innerHTML = strUnit + ' unid.';
-        card.querySelector("#tplVol").innerHTML = strVol + ' vol.';
-        card.querySelector("#tplRatio").innerHTML = 'R$ ' + strRatio + '/vol.';
-        card.querySelector("#tplPrice").innerHTML = 'R$ ' + strPrice;
-
-        _secListCards.appendChild(card);
+    // get index from best choice(s)
+    let arrIdxBestChoices = findBestChoiceIndex();
+    // set backgroud-color to card
+    arrIdxBestChoices.forEach((element, index) => {
+        document.querySelectorAll("section#cards-list article")[element].style.backgroundColor = _styleCardBestChoice;
     });
 }
 
@@ -122,9 +126,7 @@ function calculateRation(units, vol, price) {
     if (vol - parseInt(vol) > 0)
         vol = vol * 1000; // convert to default unit
 
-    let rating = parseFloat((price / (units * vol)).toFixed(3));
-
-    return ({ "units": units, "vol": vol, "price": price, "rating": rating });
+    return parseFloat((price / (units * vol)).toFixed(3));
 }
 
 /**
@@ -132,8 +134,7 @@ function calculateRation(units, vol, price) {
  */
 function newDataSet() {
     console.log('create dataset');
-    _jsonDataSet = '{ "items": [] }';
-    _arrDataSet = JSON.parse(_jsonDataSet);
+    _arrDataSet = [];
 }
 
 /**
@@ -141,18 +142,31 @@ function newDataSet() {
  * @param {object item} newItem 
  */
 function addDataSet(newItem) {
-    console.log('add item dataset');
-    _arrDataSet["items"].push(newItem);
-    _jsonDataSet = JSON.stringify(_arrDataSet);
+    console.log('add item in dataset');
+    _arrDataSet.push(newItem);
+    //console.table(_arrDataSet);
+    //_jsonDataSet = JSON.stringify(_arrDataSet);
 }
 
 /**
- * sort list
+ * find and return minor ratio from array
  */
-function sortDataSet() {
-    console.log('sort dataset');
-    _arrDataSet.items.sort(function (a, b) {
-        return a["rating"] - b["rating"];
+function findBestChoice() {
+    const arrAux = _arrDataSet.slice(0);
+    return arrAux.sort((item1, item2) => item1.ratio - item2.ratio)[0];
+}
+
+/**
+ * Find index of best choice(s) and return array
+ */
+function findBestChoiceIndex() {
+    let arrIndexBestChoice = [];
+    const bestChoice = findBestChoice();
+
+    _arrDataSet.forEach((element, index) => {
+        if (element.ratio == bestChoice.ratio)
+            arrIndexBestChoice.push(index);
     });
-    //console.table(_arrDataSet.items);
+
+    return arrIndexBestChoice;
 }

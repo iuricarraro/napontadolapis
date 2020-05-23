@@ -1,0 +1,13 @@
+Na Ponta do Lápis! v1.1.0 enhancement & bug-fixes:
+
+ 1.  Update meta viewport to initial-scale=1.0
+ 2.  Add about.html file
+ 3.  Add icon images for about.html
+ 4.  Add recources.js for any input placeholders string
+ 5.  Add support of multiple input placeholders
+ 6.  Change width of buttons
+ 7.  Keep inserted order of items
+ 8.  Changed how show best choice(s)
+ 9.  Set border color input text
+10.  Set gradient background-color on box input data
+11.  Refactory how get best choice (lower ratio)
