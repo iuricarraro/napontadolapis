@@ -35,9 +35,9 @@ function addItem() {
     let oPrice = document.querySelector('#price');
     let oForm = document.querySelector("#form");
 
-    let numUnits = parseInt(oNumUnits.value);
-    let volUnit = parseFloat(oVolUnit.value.replace(",", "."));
-    let price = parseFloat(oPrice.value.replace(",", "."));
+    const numUnits = parseInt(oNumUnits.value);
+    const volUnit = parseFloat(oVolUnit.value.replace(",", "."));
+    const price = parseFloat(oPrice.value.replace(",", "."));
 
     oNumUnits.style.backgroundColor = '';
     oVolUnit.style.backgroundColor = '';
@@ -144,8 +144,6 @@ function newDataSet() {
 function addDataSet(newItem) {
     console.log('add item in dataset');
     _arrDataSet.push(newItem);
-    //console.table(_arrDataSet);
-    //_jsonDataSet = JSON.stringify(_arrDataSet);
 }
 
 /**
